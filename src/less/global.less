@@ -1,0 +1,40 @@
+@import './tool.less';
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Hiragino Sans GB', 'Heiti SC', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  margin: 0;
+  background-color: #fff;
+  user-select: none;
+  .res-error {
+    z-index: 10000;
+  }
+  .mint-button {
+    z-index: 3;
+  }
+}
+a {
+  cursor: default;
+}
+.container-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+.container {
+  position: relative;
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  padding-top: 80px;
+  transition: transform 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+  .px2px(font-size, 28);
+}
