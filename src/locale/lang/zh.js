@@ -16,6 +16,9 @@ export default {
     temperature: '温度',
     receiveVol: '接收卡电压',
     receiveTemperature: '接收卡温度',
-    monitorVol:'监控卡电压'
+    monitorVol:'监控卡电压',
+    need: '需要维修单元板个数',
+    fullscreen: '全凭坏点率',
+    detecttime: '检测时间'
   }
 };

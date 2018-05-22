@@ -68,8 +68,25 @@
           </div>
         </div>
       </div>
-      <div v-if="!showMonitor" class="content-detect">
-
+      <div v-show="!showMonitor" class="content-detect">
+        <div class="detect-title">
+          <div class="detect-title_item"><i class="need icon"></i><span>{{$t('cameral.need')}}</span></div>
+          <div class="detect-title_item">1(坏点率超过0‰)</div>
+        </div>
+        <div class="detect-title">
+          <div class="detect-title_item"><i class="fullscreen icon"></i><span>{{$t('cameral.fullscreen')}}</span></div>
+          <div class="detect-title_item">5.3‰(50/9517)</div>
+        </div>
+        <div class="detect-title">
+          <div class="detect-title_item"><i class="detecttime icon"></i><span>{{$t('cameral.detecttime')}}</span></div>
+          <div class="detect-title_item">2017-10-14 16:30:22(UTC)</div>
+        </div>
+        <div>
+          <div class="unitNum">
+            单元板总数:10
+          </div>
+          <div class="echart" ref="chart"></div>
+        </div>
       </div>
     </div>
     <div class="footer">
@@ -86,6 +103,13 @@
   import http from '@/api/http';
   import url from '@/api/apiurl';
   import Percent from './percent';
+  // 引入基本模板
+  let echarts = require('echarts/lib/echarts');
+  // 引入柱状图组件
+  require('echarts/lib/chart/bar');
+  // 引入提示框和title组件
+  require('echarts/lib/component/tooltip');
+  require('echarts/lib/component/title');
   export default {
     components: {
       Percent
@@ -123,6 +147,33 @@
         ]
       };
     },
+    methods: {
+      drawLine() {
+        // 基于准备好的dom，初始化echarts实例
+        console.log(this.$refs.chart);
+        let myChart = echarts.init(this.$refs['chart']);
+         //绘制图表
+        myChart.setOption({
+          title: { text: 'ECharts示例' },
+          tooltip: {},
+          xAxis: {
+            data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+          },
+          grid:{
+            x:25,
+            y:45,
+            x2:5,
+            y2:20
+          },
+          yAxis: {},
+          series: [{
+            name: '销量',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20]
+          }]
+        });
+      }
+    },
     created() {
       http.get(url.cameral).then(res => {
         this.cameral = res.data;
@@ -134,6 +185,9 @@
         this.ep = percenter.ep.real + 'GB/' + percenter.ep.all + 'GB';
         this.fp = percenter.fp.real + 'GB/' + percenter.fp.all + 'GB';
       });
+    },
+    mounted() {
+      this.drawLine();
     },
     watch: {
       selected(val) {
@@ -181,6 +235,44 @@
       background-size: cover;
       background-position: center;
     }
+  }
+  .detect-title {
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    overflow: auto;
+    &_item {
+      float: left;
+      width: 50%;
+      padding: 10px;
+    }
+  }
+  .icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .need {
+    background: url('../../assets/cameral/point1.png') no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  .fullscreen {
+    background: url('../../assets/cameral/point2.png') no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  .detecttime {
+    background: url('../../assets/cameral/point3.png') no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  .unitNum {
+    padding: 10px;
+  }
+  .echart {
+    width: 400px; /*no*/
+    height: 500px; /*no*/
   }
   .monitor-info {
     width: 100%;
