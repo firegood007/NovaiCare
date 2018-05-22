@@ -3,6 +3,14 @@ let apis = {
   test: {
     url: 'test',
     type: offline
+  },
+  screen: {
+    url: 'screen',
+    type: offline
+  },
+  cameral: {
+    url: 'cameral',
+    type: offline
   }
 };
 

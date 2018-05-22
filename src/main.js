@@ -25,7 +25,7 @@ import App from './App'; // 主入口
 Vue.use(MintUI);
 Vue.use(VueRouter);
 Vue.use(VueI18n);
-
+console.log(touch);
 Vue.directive('touch', touch);
 
 let locale = getLoc('lang') == null ? 'zh' : getLoc('lang');

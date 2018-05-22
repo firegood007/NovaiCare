@@ -3,7 +3,14 @@
     <mt-header>
       <!-- NovaiCare -->
       <mt-button slot="left" v-if="showName">NovaiCare</mt-button>
-
+      <!-- 返回 -->
+      <mt-button slot="left" v-if="showback" @click="back"><img src="../assets/common/back.png" slot="icon"></mt-button>
+      <!-- 显示列表 -->
+      <mt-button slot="right" v-if="showList" @click="list"><img src="../assets/index/list.png" slot="icon"></mt-button>
+      <!-- 显示图片 -->
+      <mt-button slot="right" v-if="showPicture" @click="picture"><img src="../assets/index/picture.png" slot="icon"></mt-button>
+      <!-- 刷新按钮 -->
+      <mt-button slot="right" v-if="showRrefreshL" @click="refresh"><img src="../assets/common/refresh.png" slot="icon"></mt-button>
       <!-- Home键 -->
       <!-- <mt-button slot="left" v-if="showHome" @click="home"><img src="../assets/common/btn_menu_home.png" slot="icon"></mt-button>
       返回上一路由
@@ -43,9 +50,25 @@
       };
     },
     props: [
-      'showName' // 显示NovaiCare.
+      'showback', // 返回按钮
+      'showName', // 显示NovaiCare.
+      'showList', // 显示列表
+      'showPicture', //显示图片
+      'showRrefreshL' //刷新按钮
     ],
     methods: {
+      list() {
+        this.$emit('list');
+      },
+      picture() {
+        this.$emit('picture');
+      },
+      back() {
+        this.$router.go(-1);
+      },
+      refresh() {
+        window.location.reload();
+      }
     }
   };
 </script>

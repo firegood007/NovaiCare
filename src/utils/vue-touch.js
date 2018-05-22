@@ -19,7 +19,7 @@ const touchs = {
   bind: function(el, binding) {
     let handler = null;
     let evtType = '';
-    let evt = new Hammer.Manager(el);
+    let evt = new Hammer.Manager(el); //手势实例
     for (let key in binding.modifiers) {
       if (key === 'tap') {
         evt.add(new Hammer[(capitalize(key))]({ event: 'doubletap', taps: 2 }));
@@ -50,14 +50,16 @@ const touchs = {
     for (let key in binding.modifiers) {
       directions[key].forEach(et => {
         evt.on(et, function(e) {
+          // arg0 事件手势 arg1 事件对象  arg2 手势实例
+          binding.value(et, e, evt);
           //返回自定义的属性index
-          if ($(e.target).filter('[data-index]').length || $(e.target).parents('[data-index]').length) {
-            e.target = $(e.target).filter('[data-index]').length ? e.target : $(e.target).parents('[data-index]')[0];
-          }
-          if (e.target === evt.element) {
-            evt.index = +evt.element.getAttribute('data-index');
-            binding.value(et, e, evt);
-          }
+          // if ($(e.target).filter('[data-index]').length || $(e.target).parents('[data-index]').length) {
+          //   e.target = $(e.target).filter('[data-index]').length ? e.target : $(e.target).parents('[data-index]')[0];
+          // }
+          // if (e.target === evt.element) {
+          //   evt.index = +evt.element.getAttribute('data-index');
+          //   binding.value(et, e, evt);
+          // }
         });
       });
     }
